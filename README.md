@@ -15,5 +15,5 @@
 
 ###支持随机键盘:
 ```objc
-    keyBoard.random = NO;
+    keyBoard.random = YES;
 ```
