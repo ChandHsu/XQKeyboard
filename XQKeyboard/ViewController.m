@@ -25,7 +25,7 @@
     textField.placeholder = @"这是一个输入框";
     [self.view addSubview:textField];
     XQKeyboard *keyBoard = [[XQKeyboard alloc] init];
-    keyBoard.random = YES;
+    keyBoard.random = NO;
     textField.inputView = keyBoard;
     
 }
