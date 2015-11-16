@@ -91,7 +91,7 @@
     [self addSubview:trasitionWordBtn];
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [deleteBtn setImage:[UIImage imageNamed:@"images.bundle/keypadDeleteBtn2"] forState:UIControlStateNormal];
+        [deleteBtn setBackgroundImage:[UIImage imageNamed:@"images.bundle/keypadDeleteBtn2"] forState:UIControlStateNormal];
     [deleteBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [deleteBtn addTarget:self action:@selector(deleteBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:deleteBtn];
@@ -135,7 +135,7 @@
     self.deleteBtn.layer.cornerRadius = 5.0;
     self.deleteBtn.layer.masksToBounds = YES;
     
-    
+    self.autoresizingMask = UIViewAutoresizingFlexibleHeight| UIViewAutoresizingFlexibleWidth;
 }
 
 - (void)trasitionWord:(UIButton *)trasitionWordBtn{

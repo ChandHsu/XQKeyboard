@@ -27,6 +27,7 @@
 
 @implementation XQKeyboard
 
+
 - (XQKeyboardNumPad *)numPad{
     if (!_numPad) {
         _numPad = [[XQKeyboardNumPad alloc] initWithFrame:self.bounds];
@@ -58,23 +59,14 @@
     self = [super init];
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:116/255.0 green:144/255.0 blue:194/255.0 alpha:0.2];
-        CGRect rect = CGRectZero;
-        if (iPhone4 || iPhone5) {
-            rect = CGRectMake(0, 0, 320, 180);
-//            rect = CGRectMake(0, 0, 320, 216);
-        }else if (iPhone6){
-//            rect = CGRectMake(0, 0, 375, 375/320*180);
-            rect = CGRectMake(0, 0, 375, 216);
-        }else{
-//            rect = CGRectMake(0, 0, 414, 414/320*180);
-            rect = CGRectMake(0, 0, 414, 226);
-        }
         
-        self.frame = rect;
-        XQKeyboardNumPad *numPad = [[XQKeyboardNumPad alloc] initWithFrame:rect];
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight| UIViewAutoresizingFlexibleWidth;
+        
+        XQKeyboardNumPad *numPad = [[XQKeyboardNumPad alloc] initWithFrame:self.bounds];
         numPad.delegate = self;
         self.numPad = numPad;
         [self addSubview:numPad];
+        
     }
     return self;
 }
@@ -113,5 +105,7 @@
     _random = random;
     self.numPad.random = random;
 }
+
+
 
 @end

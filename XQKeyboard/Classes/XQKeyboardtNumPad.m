@@ -118,7 +118,7 @@
     [self addSubview:symbolSwitchBtn];
     
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [deleteBtn setImage:[UIImage imageNamed:@"images.bundle/keypadDeleteBtn"] forState:UIControlStateNormal];
+    [deleteBtn setBackgroundImage:[UIImage imageNamed:@"images.bundle/keypadDeleteBtn"] forState:UIControlStateNormal];
     [self addSubview:deleteBtn];
     deleteBtn.tag = 11;
     
@@ -159,6 +159,7 @@
         btn.layer.masksToBounds = YES;
     }
     
+    self.autoresizingMask = UIViewAutoresizingFlexibleHeight| UIViewAutoresizingFlexibleWidth;
 }
 
 - (void)layoutSubviews{
