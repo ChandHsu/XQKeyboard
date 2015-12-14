@@ -1,5 +1,6 @@
 # XQKeyboard
 ##自定义密码键盘,一键即可集成<br>
+##支持 iPhone 和 iPad,支持横竖屏
 ##效果预览:
 ![](https://github.com/qianggeProgramer/XQKeyboard/blob/master/1.gif)
 ![](https://github.com/qianggeProgramer/XQKeyboard/blob/master/2.gif)
