@@ -7,8 +7,9 @@
 //
 
 #import "XQKeyboardSymbolPad.h"
+#import "XQKeyboardTool.h"
 
-@interface XQKeyboardSymbolPad ()
+@interface XQKeyboardSymbolPad () 
 
 @property (nonatomic, weak) UITextField *responder;
 @property (nonatomic, strong) NSArray *symbolArray;
@@ -124,9 +125,7 @@
 }
 
 - (void)deleteBtnClick{
-    if (self.responder.text.length) {
-        self.responder.text = [self.responder.text substringToIndex:self.responder.text.length-1];
-    }
+    [XQKeyboardTool deleteStringForResponder:self.responder];
 }
 
 - (void)switchBtnClick:(UIButton *)btn{
@@ -159,7 +158,8 @@
 
 #pragma mark - XQKeyboardBtnDelegate
 -(void)KeyboardBtnDidClick:(XQKeyboardBtn *)btn{
-    self.responder.text = [self.responder.text stringByAppendingString:btn.titleLabel.text];
+    
+    [XQKeyboardTool appendString:btn.titleLabel.text forResponder:self.responder];
 }
 
 

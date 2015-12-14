@@ -8,6 +8,7 @@
 
 #import "XQKeyboardWordPad.h"
 #import "XQKeyboardBtn.h"
+#import "XQKeyboardTool.h"
 
 @interface XQKeyboardWordPad ()
 
@@ -155,9 +156,7 @@
 }
 
 - (void)deleteBtnClick{
-    if (self.responder.text.length) {
-        self.responder.text = [self.responder.text substringToIndex:self.responder.text.length-1];
-    }
+    [XQKeyboardTool deleteStringForResponder:self.responder];
 }
 
 - (void)switchBtnClick:(UIButton *)btn{
@@ -205,16 +204,13 @@
 
 #pragma mark - XQKeyboardBtnDelegate
 -(void)KeyboardBtnDidClick:(XQKeyboardBtn *)btn{
+    
+    NSString *newText = btn.titleLabel.text;
     if ([btn.titleLabel.text isEqualToString:@"空格"]) {
-        self.responder.text = [self.responder.text stringByAppendingString:@" "];
-    }else{
-//        if (self.trasitionWordBtn.selected) {
-//            self.responder.text = [self.responder.text stringByAppendingString:self.WORDArray[[self.btnArray indexOfObject:btn]]];
-//        }else{
-//            
-//        }
-        self.responder.text = [self.responder.text stringByAppendingString:btn.titleLabel.text];
+        newText = @" ";
     }
+    
+    [XQKeyboardTool appendString:newText forResponder:self.responder];
 }
 
 @end

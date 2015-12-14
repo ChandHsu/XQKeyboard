@@ -7,12 +7,14 @@
 //
 
 #import "XQKeyboardNumPad.h"
+#import "XQKeyboardTool.h"
 
 @interface XQKeyboardNumPad () <XQKeyboardBtnDelegate>
 
 @property (nonatomic, strong) NSMutableArray *btnArray;
 @property (nonatomic, weak) UITextField *responder;
 @property (nonatomic, strong) NSArray *numArray;
+@property (nonatomic, assign) NSRange selectedRange;
 
 @end
 
@@ -26,6 +28,8 @@
 //    }
     return _responder;
 }
+
+
 
 - (NSArray *)numArray{
     if (!_numArray) {
@@ -179,9 +183,7 @@
 }
 
 - (void)deleteBtnClick{
-    if (self.responder.text.length) {
-        self.responder.text = [self.responder.text substringToIndex:self.responder.text.length-1];
-    }
+    [XQKeyboardTool deleteStringForResponder:self.responder];
 }
 
 - (void)okBtnClick{
@@ -190,15 +192,9 @@
 
 #pragma mark - XQKeyboardBtnDelegate
 -(void)KeyboardBtnDidClick:(XQKeyboardBtn *)btn{
-    if (btn.tag % 4 == 3) {
-//        if (btn.tag == 3) {// ABC
-//            
-//        } else if(btn.tag == 7) {// @#%
-//            
-//        }
-        return;
-    }
-    self.responder.text = [self.responder.text stringByAppendingString:btn.titleLabel.text];
+    if (btn.tag % 4 == 3) return;
+    
+    [XQKeyboardTool appendString:btn.titleLabel.text forResponder:self.responder];
 }
 
 

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180E2A981C1E8C5E00EAC44B /* XQKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E2A8D1C1E8C5E00EAC44B /* XQKeyboard.m */; };
+		180E2A991C1E8C5E00EAC44B /* XQKeyboardBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E2A8F1C1E8C5E00EAC44B /* XQKeyboardBtn.m */; };
+		180E2A9A1C1E8C5E00EAC44B /* XQKeyboardSymbolPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E2A921C1E8C5E00EAC44B /* XQKeyboardSymbolPad.m */; };
+		180E2A9B1C1E8C5E00EAC44B /* XQKeyboardtNumPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E2A931C1E8C5E00EAC44B /* XQKeyboardtNumPad.m */; };
+		180E2A9C1C1E8C5E00EAC44B /* XQKeyboardTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E2A951C1E8C5E00EAC44B /* XQKeyboardTool.m */; };
+		180E2A9D1C1E8C5E00EAC44B /* XQKeyboardWordPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 180E2A971C1E8C5E00EAC44B /* XQKeyboardWordPad.m */; };
 		4A52AE2E1BCE49AF00CAC390 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE2D1BCE49AF00CAC390 /* main.m */; };
 		4A52AE311BCE49AF00CAC390 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE301BCE49AF00CAC390 /* AppDelegate.m */; };
 		4A52AE341BCE49AF00CAC390 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE331BCE49AF00CAC390 /* ViewController.m */; };
@@ -16,11 +22,6 @@
 		4A52AE471BCE49AF00CAC390 /* XQKeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE461BCE49AF00CAC390 /* XQKeyboardTests.m */; };
 		4A52AE521BCE49AF00CAC390 /* XQKeyboardUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE511BCE49AF00CAC390 /* XQKeyboardUITests.m */; };
 		4A52AE6B1BCE49C400CAC390 /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A52AE601BCE49C400CAC390 /* images.bundle */; };
-		4A52AE6C1BCE49C400CAC390 /* XQKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE621BCE49C400CAC390 /* XQKeyboard.m */; };
-		4A52AE6D1BCE49C400CAC390 /* XQKeyboardBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE641BCE49C400CAC390 /* XQKeyboardBtn.m */; };
-		4A52AE6E1BCE49C400CAC390 /* XQKeyboardSymbolPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE671BCE49C400CAC390 /* XQKeyboardSymbolPad.m */; };
-		4A52AE6F1BCE49C400CAC390 /* XQKeyboardtNumPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE681BCE49C400CAC390 /* XQKeyboardtNumPad.m */; };
-		4A52AE701BCE49C400CAC390 /* XQKeyboardWordPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE6A1BCE49C400CAC390 /* XQKeyboardWordPad.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		180E2A8C1C1E8C5E00EAC44B /* XQKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboard.h; sourceTree = "<group>"; };
+		180E2A8D1C1E8C5E00EAC44B /* XQKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboard.m; sourceTree = "<group>"; };
+		180E2A8E1C1E8C5E00EAC44B /* XQKeyboardBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardBtn.h; sourceTree = "<group>"; };
+		180E2A8F1C1E8C5E00EAC44B /* XQKeyboardBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardBtn.m; sourceTree = "<group>"; };
+		180E2A901C1E8C5E00EAC44B /* XQKeyboardNumPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardNumPad.h; sourceTree = "<group>"; };
+		180E2A911C1E8C5E00EAC44B /* XQKeyboardSymbolPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardSymbolPad.h; sourceTree = "<group>"; };
+		180E2A921C1E8C5E00EAC44B /* XQKeyboardSymbolPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardSymbolPad.m; sourceTree = "<group>"; };
+		180E2A931C1E8C5E00EAC44B /* XQKeyboardtNumPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardtNumPad.m; sourceTree = "<group>"; };
+		180E2A941C1E8C5E00EAC44B /* XQKeyboardTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardTool.h; sourceTree = "<group>"; };
+		180E2A951C1E8C5E00EAC44B /* XQKeyboardTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardTool.m; sourceTree = "<group>"; };
+		180E2A961C1E8C5E00EAC44B /* XQKeyboardWordPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardWordPad.h; sourceTree = "<group>"; };
+		180E2A971C1E8C5E00EAC44B /* XQKeyboardWordPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardWordPad.m; sourceTree = "<group>"; };
 		4A52AE291BCE49AF00CAC390 /* XQKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XQKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A52AE2D1BCE49AF00CAC390 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4A52AE2F1BCE49AF00CAC390 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -58,16 +71,6 @@
 		4A52AE511BCE49AF00CAC390 /* XQKeyboardUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardUITests.m; sourceTree = "<group>"; };
 		4A52AE531BCE49AF00CAC390 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A52AE601BCE49C400CAC390 /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
-		4A52AE611BCE49C400CAC390 /* XQKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboard.h; sourceTree = "<group>"; };
-		4A52AE621BCE49C400CAC390 /* XQKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboard.m; sourceTree = "<group>"; };
-		4A52AE631BCE49C400CAC390 /* XQKeyboardBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardBtn.h; sourceTree = "<group>"; };
-		4A52AE641BCE49C400CAC390 /* XQKeyboardBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardBtn.m; sourceTree = "<group>"; };
-		4A52AE651BCE49C400CAC390 /* XQKeyboardNumPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardNumPad.h; sourceTree = "<group>"; };
-		4A52AE661BCE49C400CAC390 /* XQKeyboardSymbolPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardSymbolPad.h; sourceTree = "<group>"; };
-		4A52AE671BCE49C400CAC390 /* XQKeyboardSymbolPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardSymbolPad.m; sourceTree = "<group>"; };
-		4A52AE681BCE49C400CAC390 /* XQKeyboardtNumPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardtNumPad.m; sourceTree = "<group>"; };
-		4A52AE691BCE49C400CAC390 /* XQKeyboardWordPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboardWordPad.h; sourceTree = "<group>"; };
-		4A52AE6A1BCE49C400CAC390 /* XQKeyboardWordPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardWordPad.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,16 +165,18 @@
 			isa = PBXGroup;
 			children = (
 				4A52AE601BCE49C400CAC390 /* images.bundle */,
-				4A52AE611BCE49C400CAC390 /* XQKeyboard.h */,
-				4A52AE621BCE49C400CAC390 /* XQKeyboard.m */,
-				4A52AE631BCE49C400CAC390 /* XQKeyboardBtn.h */,
-				4A52AE641BCE49C400CAC390 /* XQKeyboardBtn.m */,
-				4A52AE651BCE49C400CAC390 /* XQKeyboardNumPad.h */,
-				4A52AE681BCE49C400CAC390 /* XQKeyboardtNumPad.m */,
-				4A52AE661BCE49C400CAC390 /* XQKeyboardSymbolPad.h */,
-				4A52AE671BCE49C400CAC390 /* XQKeyboardSymbolPad.m */,
-				4A52AE691BCE49C400CAC390 /* XQKeyboardWordPad.h */,
-				4A52AE6A1BCE49C400CAC390 /* XQKeyboardWordPad.m */,
+				180E2A8C1C1E8C5E00EAC44B /* XQKeyboard.h */,
+				180E2A8D1C1E8C5E00EAC44B /* XQKeyboard.m */,
+				180E2A941C1E8C5E00EAC44B /* XQKeyboardTool.h */,
+				180E2A951C1E8C5E00EAC44B /* XQKeyboardTool.m */,
+				180E2A8E1C1E8C5E00EAC44B /* XQKeyboardBtn.h */,
+				180E2A8F1C1E8C5E00EAC44B /* XQKeyboardBtn.m */,
+				180E2A901C1E8C5E00EAC44B /* XQKeyboardNumPad.h */,
+				180E2A911C1E8C5E00EAC44B /* XQKeyboardSymbolPad.h */,
+				180E2A921C1E8C5E00EAC44B /* XQKeyboardSymbolPad.m */,
+				180E2A931C1E8C5E00EAC44B /* XQKeyboardtNumPad.m */,
+				180E2A961C1E8C5E00EAC44B /* XQKeyboardWordPad.h */,
+				180E2A971C1E8C5E00EAC44B /* XQKeyboardWordPad.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -307,14 +312,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A52AE6D1BCE49C400CAC390 /* XQKeyboardBtn.m in Sources */,
-				4A52AE701BCE49C400CAC390 /* XQKeyboardWordPad.m in Sources */,
+				180E2A991C1E8C5E00EAC44B /* XQKeyboardBtn.m in Sources */,
 				4A52AE341BCE49AF00CAC390 /* ViewController.m in Sources */,
-				4A52AE6C1BCE49C400CAC390 /* XQKeyboard.m in Sources */,
-				4A52AE6F1BCE49C400CAC390 /* XQKeyboardtNumPad.m in Sources */,
+				180E2A981C1E8C5E00EAC44B /* XQKeyboard.m in Sources */,
+				180E2A9C1C1E8C5E00EAC44B /* XQKeyboardTool.m in Sources */,
+				180E2A9B1C1E8C5E00EAC44B /* XQKeyboardtNumPad.m in Sources */,
 				4A52AE311BCE49AF00CAC390 /* AppDelegate.m in Sources */,
 				4A52AE2E1BCE49AF00CAC390 /* main.m in Sources */,
-				4A52AE6E1BCE49C400CAC390 /* XQKeyboardSymbolPad.m in Sources */,
+				180E2A9D1C1E8C5E00EAC44B /* XQKeyboardWordPad.m in Sources */,
+				180E2A9A1C1E8C5E00EAC44B /* XQKeyboardSymbolPad.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
