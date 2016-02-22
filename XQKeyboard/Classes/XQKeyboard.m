@@ -127,45 +127,21 @@
 }
 + (void)appendString:(NSString *)newString forResponder :(UITextField *)textField{
     
-    //    [textField insertText:newString];
-    
     NSRange selectRange = [XQKeyboardTool rangeFromTextRange:textField.selectedTextRange inTextField:textField];
     
     BOOL shouldChange = YES;
     if ([textField.delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
-        shouldChange = [textField.delegate textField:textField shouldChangeCharactersInRange: selectRange replacementString:newString];
+        shouldChange = [textField.delegate textField:textField shouldChangeCharactersInRange:selectRange replacementString:newString];
     }
     if (!shouldChange) return;
     
-    UITextRange* selectionRange = [self textRangeFromRange:selectRange inTextField:textField];
-    [textField replaceRange:selectionRange withText:newString];
-    
-    NSRange newRange = NSMakeRange(selectRange.location+newString.length, 0);
-    [self setSelectedRange:newRange ofTextField:textField];
+    [textField insertText:newString];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:textField userInfo:nil];
 }
 + (void)deleteStringForResponder:(UITextField *)textField{
     
-    NSRange selectRange = [XQKeyboardTool rangeFromTextRange:textField.selectedTextRange inTextField:textField];
-    
-    if (selectRange.location==0&&selectRange.length==0) return;
-    
-    NSString *prefixStr;
-    NSString *suffixStr = [textField.text substringWithRange:NSMakeRange(selectRange.length+selectRange.location, textField.text.length-selectRange.length-selectRange.location)];
-    NSRange newRange;
-    
-    if (selectRange.length==0) {
-        prefixStr = [textField.text substringToIndex:selectRange.location-1];
-        textField.text = [prefixStr stringByAppendingString:suffixStr];
-        newRange = NSMakeRange(prefixStr.length, 0);
-    }else{
-        textField.text = [textField.text stringByReplacingOccurrencesOfString:[textField.text substringWithRange:selectRange] withString:@""];
-        newRange = NSMakeRange(selectRange.location, 0);
-    }
-    
-    [self setSelectedRange:newRange ofTextField:textField];
-    
+    [textField deleteBackward];
 }
 
 @end

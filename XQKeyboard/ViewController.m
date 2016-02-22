@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "XQKeyboard.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITextFieldDelegate>
 
 @end
 
@@ -28,6 +28,16 @@
     keyBoard.random = YES;
     textField.inputView = keyBoard;
     
+    textField.delegate = self;
+    
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSLog(@"正在输入");
+    return YES;
+}
+
+
 
 @end
