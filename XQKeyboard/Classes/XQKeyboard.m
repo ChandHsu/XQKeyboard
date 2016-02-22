@@ -14,12 +14,12 @@
 @interface XQKeyboardTool : NSObject
 
 + (NSRange)rangeFromTextRange:(UITextRange *)textRange inTextField:(UITextField *)textField;
++ (UITextRange *)textRangeFromRange:(NSRange)range inTextField:(UITextField *)textField;
 + (void)setSelectedRange:(NSRange)range ofTextField:(UITextField *)textField;
 + (void)appendString:(NSString *)newString forResponder:(UITextField *)textField;
 + (void)deleteStringForResponder:(UITextField *)textField;
 
 @end
-
 
 @class XQKeyboardBtn;
 @protocol XQKeyboardBtnDelegate <NSObject>
@@ -36,8 +36,6 @@
 + (XQKeyboardBtn *)buttonWithTitle:(NSString *)title tag:(NSInteger)tag  delegate:(id)delegate;
 
 @end
-
-
 
 @protocol XQKeyboardNumPadDelegate  <NSObject>
 
@@ -115,26 +113,37 @@
     
     return NSMakeRange(location, length);
 }
++ (UITextRange *)textRangeFromRange:(NSRange)range inTextField:(UITextField *)textField{
+    UITextPosition *beginning = textField.beginningOfDocument;
+    UITextPosition *startPosition = [textField positionFromPosition:beginning offset:range.location];
+    UITextPosition *endPosition = [textField positionFromPosition:beginning offset:range.location + range.length];
+    UITextRange* selectionRange = [textField textRangeFromPosition:startPosition toPosition:endPosition];
+    return selectionRange;
+}
 + (void)setSelectedRange:(NSRange)range ofTextField:(UITextField *)textField{
     
-    UITextPosition* beginning = textField.beginningOfDocument;
-    UITextPosition* startPosition = [textField positionFromPosition:beginning offset:range.location];
-    UITextPosition* endPosition = [textField positionFromPosition:beginning offset:range.location + range.length];
-    UITextRange* selectionRange = [textField textRangeFromPosition:startPosition toPosition:endPosition];
+     UITextRange *selectionRange = [self textRangeFromRange:range inTextField:textField];
     [textField setSelectedTextRange:selectionRange];
 }
 + (void)appendString:(NSString *)newString forResponder :(UITextField *)textField{
     
+    //    [textField insertText:newString];
+    
     NSRange selectRange = [XQKeyboardTool rangeFromTextRange:textField.selectedTextRange inTextField:textField];
     
-    NSString *prefixStr = [textField.text substringToIndex:selectRange.location];
-    NSString *suffixStr = [textField.text substringWithRange:NSMakeRange(selectRange.length+selectRange.location, textField.text.length-selectRange.length-selectRange.location)];
+    BOOL shouldChange = YES;
+    if ([textField.delegate respondsToSelector:@selector(textField:shouldChangeCharactersInRange:replacementString:)]) {
+        shouldChange = [textField.delegate textField:textField shouldChangeCharactersInRange: selectRange replacementString:newString];
+    }
+    if (!shouldChange) return;
     
-    textField.text = [NSString stringWithFormat:@"%@%@%@",prefixStr,newString,suffixStr];
+    UITextRange* selectionRange = [self textRangeFromRange:selectRange inTextField:textField];
+    [textField replaceRange:selectionRange withText:newString];
     
     NSRange newRange = NSMakeRange(selectRange.location+newString.length, 0);
-    
     [self setSelectedRange:newRange ofTextField:textField];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:textField userInfo:nil];
 }
 + (void)deleteStringForResponder:(UITextField *)textField{
     
@@ -297,6 +306,13 @@
     }
 }
 - (void)okBtnClick{
+    BOOL canReturn = YES;
+    if ([self.responder respondsToSelector:@selector(textFieldShouldReturn:)]) {
+        canReturn = [self.responder.delegate textFieldShouldReturn:self.responder];
+    }
+    
+    if (!canReturn) return;
+    
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 - (void)layoutSubviews{
@@ -484,6 +500,14 @@
     [XQKeyboardTool deleteStringForResponder:self.responder];
 }
 - (void)okBtnClick{
+    
+    BOOL canReturn = YES;
+    if ([self.responder respondsToSelector:@selector(textFieldShouldReturn:)]) {
+        canReturn = [self.responder.delegate textFieldShouldReturn:self.responder];
+    }
+    
+    if (!canReturn) return;
+    
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 
@@ -629,6 +653,13 @@
     }
 }
 - (void)okBtnClick{
+    BOOL canReturn = YES;
+    if ([self.responder respondsToSelector:@selector(textFieldShouldReturn:)]) {
+        canReturn = [self.responder.delegate textFieldShouldReturn:self.responder];
+    }
+    
+    if (!canReturn) return;
+    
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 - (void)layoutSubviews{
