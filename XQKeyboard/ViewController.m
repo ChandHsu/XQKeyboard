@@ -23,12 +23,12 @@
     UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(60, 150, 200, 40)];
     textField.borderStyle = UITextBorderStyleRoundedRect;
     textField.placeholder = @"这是一个输入框";
+    textField.delegate = self;
     [self.view addSubview:textField];
     XQKeyboard *keyBoard = [[XQKeyboard alloc] init];
     keyBoard.random = YES;
     textField.inputView = keyBoard;
     
-    textField.delegate = self;
     
 }
 
@@ -37,7 +37,9 @@
     NSLog(@"正在输入");
     return YES;
 }
-
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    NSLog(@"完成");
+    return YES;
+}
 
 @end
