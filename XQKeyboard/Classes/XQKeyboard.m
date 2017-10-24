@@ -112,6 +112,12 @@
 
 @implementation XQKeyboardBasePad
 
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    }
+    return self;
+}
 - (UITextField *)responder{
     //    if (!_responder) {  // 防止多个输入框采用同一个inputview
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
@@ -317,7 +323,6 @@
     self.deleteBtn.layer.cornerRadius = 5.0;
     self.deleteBtn.layer.masksToBounds = YES;
     
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight| UIViewAutoresizingFlexibleWidth;
 }
 - (void)switchBtnClick:(UIButton *)btn{
     if ([self.delegate respondsToSelector:@selector(keyboardSymbolPadDidClickSwitchBtn:)]) {
@@ -327,11 +332,11 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     
-    CGSize currentSize = self.superview.bounds.size;
+    CGSize currentSize = self.bounds.size;
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
     if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
-        currentSize = CGSizeMake(self.superview.bounds.size.width-60, self.superview.bounds.size.height);
+        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
         padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
     }
     
@@ -493,15 +498,14 @@
         btn.layer.masksToBounds = YES;
     }
     
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight| UIViewAutoresizingFlexibleWidth;
 }
 - (void)layoutSubviews{
     [super layoutSubviews];
-    CGSize currentSize = self.superview.bounds.size;
+    CGSize currentSize = self.bounds.size;
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
     if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
-        currentSize = CGSizeMake(self.superview.bounds.size.width-60, self.superview.bounds.size.height);
+        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
         padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
     }
     
@@ -631,7 +635,6 @@
     self.deleteBtn.layer.cornerRadius = 5.0;
     self.deleteBtn.layer.masksToBounds = YES;
     
-    self.autoresizingMask = UIViewAutoresizingFlexibleHeight| UIViewAutoresizingFlexibleWidth;
 }
 - (void)trasitionWord:(UIButton *)trasitionWordBtn{
     trasitionWordBtn.selected = !trasitionWordBtn.selected;
@@ -655,11 +658,11 @@
 }
 - (void)layoutSubviews{
     [super layoutSubviews];
-    CGSize currentSize = self.superview.bounds.size;
+    CGSize currentSize = self.bounds.size;
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
     if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
-        currentSize = CGSizeMake(self.superview.bounds.size.width-60, self.superview.bounds.size.height);
+        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
         padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
     }
     
@@ -763,33 +766,33 @@
 - (void)keyboardNumPadDidClickSwitchBtn:(UIButton *)btn{
     if ([btn.titleLabel.text isEqualToString:@"ABC"]) {
         [self addSubview:self.wordPad];
-        [self.wordPad layoutSubviews];
+        self.wordPad.frame = self.bounds;
         [self.numPad removeFromSuperview];
     }else{
         [self addSubview:self.symbolPad];
-        [self.symbolPad layoutSubviews];
+        self.symbolPad.frame = self.bounds;
         [self.numPad removeFromSuperview];
     }
 }
 - (void)keyboardWordPadDidClickSwitchBtn:(UIButton *)btn{
     if ([btn.titleLabel.text isEqualToString:@"123"]) {
         [self addSubview:self.numPad];
-        [self.numPad layoutSubviews];
+        self.numPad.frame = self.bounds;
         [self.wordPad removeFromSuperview];
     }else{
         [self addSubview:self.symbolPad];
-        [self.symbolPad layoutSubviews];
+        self.symbolPad.frame = self.bounds;
         [self.wordPad removeFromSuperview];
     }
 }
 - (void)keyboardSymbolPadDidClickSwitchBtn:(UIButton *)btn{
     if ([btn.titleLabel.text isEqualToString:@"123"]) {
         [self addSubview:self.numPad];
-        [self.numPad layoutSubviews];
+        self.numPad.frame = self.bounds;
         [self.symbolPad removeFromSuperview];
     }else{
         [self addSubview:self.wordPad];
-        [self.wordPad layoutSubviews];
+        self.wordPad.frame = self.bounds;
         [self.symbolPad removeFromSuperview];
     }
 }
