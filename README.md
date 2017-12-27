@@ -5,7 +5,7 @@
 ![](https://github.com/qianggeProgramer/XQKeyboard/blob/master/1.gif)
 ![](https://github.com/qianggeProgramer/XQKeyboard/blob/master/2.gif)
 
-##用法:
+用法:
 * 导入主头文件：`#import "XQKeyboard.h"`<br>
 ```objc
 
@@ -14,12 +14,12 @@
 
 ```
 
-###支持随机键盘:
+支持随机键盘:
 ```objc
     keyBoard.random = YES;
 ```
 
-###支持数字键盘限制:
+支持数字键盘限制:
 ```objc
     keyBoard.numberLimit = YES;
 ```
