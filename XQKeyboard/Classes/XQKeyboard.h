@@ -12,5 +12,6 @@
 
 /*** 如果设置YES,键盘随机排布 **/
 @property (nonatomic, assign) BOOL random;// default is NO;
+@property (nonatomic, assign) BOOL numberLimit;// default is NO;
 
 @end

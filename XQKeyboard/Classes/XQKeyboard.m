@@ -65,12 +65,18 @@
 
 @end
 
+typedef enum{
+    XQKeyboardNumPadDefault,
+    XQKeyboardNumPadOnly
+} XQKeyboardNumPadType;
+
 @interface XQKeyboardNumPad : XQKeyboardBasePad <XQKeyboardBtnDelegate>
 
 @property (nonatomic, assign) BOOL random;
 @property (nonatomic, assign) id <XQKeyboardNumPadDelegate> delegate;
 @property (nonatomic, strong) NSArray *numArray;
 @property (nonatomic, assign) NSRange selectedRange;
+@property (nonatomic, assign) XQKeyboardNumPadType padType;
 
 @end
 
@@ -203,6 +209,8 @@
     maskLayer.frame = self.layer.bounds;
     maskLayer.path = maskPath.CGPath;
     self.layer.mask = maskLayer;
+    self.layer.cornerRadius = 5;
+    self.layer.masksToBounds = true;
 }
 
 @end
@@ -354,9 +362,12 @@
     self.deleteBtn.frame = CGRectMake(padMargin + 4*margin + 2*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     self.okBtn.frame = CGRectMake(padMargin + 5*margin + 3*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     
-    if (iPhoneX) {
+    if (iPhoneX && currentOri == UIDeviceOrientationPortrait) {
         [self.numPadCheckBtn setCornerCutType:UIRectCornerBottomLeft];
         [self.okBtn setCornerCutType:UIRectCornerBottomRight];
+    }else if(iPhoneX){
+        [self.numPadCheckBtn resetCornerCut];
+        [self.okBtn resetCornerCut];
     }
 }
 
@@ -373,7 +384,6 @@
 - (NSArray *)numArray{
     if (!_numArray) {
         _numArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"0",@"@",@"."];
-        
     }
     return _numArray;
 }
@@ -388,13 +398,35 @@
             [newArray exchangeObjectAtIndex:i withObjectAtIndex: m];
         }
         self.numArray = newArray;
-        for (UIButton *btn in self.subviews) {
-            [btn removeFromSuperview];
-        }
+        [self removeAllBtns];
         [self addControl];
     }
     
 }
+- (void)switchBtnClick:(UIButton *)btn{
+    if ([self.delegate respondsToSelector:@selector(keyboardNumPadDidClickSwitchBtn:)]) {
+        [self.delegate keyboardNumPadDidClickSwitchBtn:btn];
+    }
+}
+- (void)setPadType:(XQKeyboardNumPadType)padType{
+    
+    if (padType == XQKeyboardNumPadOnly) {
+        self.numArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"0"];
+    }else{
+        self.numArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"0",@"@",@"."];
+    }
+    if (_padType != padType) {
+        _padType = padType;
+        [self removeAllBtns];
+        [self addControl];
+    }
+}
+- (void)removeAllBtns{
+    for (UIButton *btn in self.subviews) {
+        [btn removeFromSuperview];
+    }
+}
+
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
@@ -404,6 +436,7 @@
     return self;
 }
 - (void)addControl{
+    
     NSMutableArray *btnArray = [NSMutableArray array];
     XQKeyboardBtn *btn1 = [XQKeyboardBtn buttonWithTitle:self.numArray[0] tag:0 delegate:self];
     [self addSubview:btn1];
@@ -435,28 +468,6 @@
     XQKeyboardBtn *btn0 = [XQKeyboardBtn buttonWithTitle:self.numArray[9] tag:13 delegate:self];
     [self addSubview:btn0];
     
-    XQKeyboardBtn *btnAT = [XQKeyboardBtn buttonWithTitle:self.numArray[10] tag:12 delegate:self];
-    [self addSubview:btnAT];
-    
-    XQKeyboardBtn *pointBtn = [XQKeyboardBtn buttonWithTitle:self.numArray[11] tag:14 delegate:self];
-    [self addSubview:pointBtn];
-    
-    UIButton *wordSwitchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    wordSwitchBtn.tag = 3;
-    [wordSwitchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [wordSwitchBtn setTitle:@"ABC" forState:UIControlStateNormal];
-    wordSwitchBtn.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    [wordSwitchBtn setBackgroundImage:[UIImage imageNamed:@"images.bundle/keypadLongBtn"] forState:UIControlStateNormal];
-    [self addSubview:wordSwitchBtn];
-    
-    UIButton *symbolSwitchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [symbolSwitchBtn setBackgroundImage:[UIImage imageNamed:@"images.bundle/keypadLongBtn"] forState:UIControlStateNormal];
-    [symbolSwitchBtn setTitle:@"@#%" forState:UIControlStateNormal];
-    [symbolSwitchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    symbolSwitchBtn.titleLabel.font = wordSwitchBtn.titleLabel.font;
-    symbolSwitchBtn.tag = 7;
-    [self addSubview:symbolSwitchBtn];
-    
     UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteBtn setBackgroundImage:[UIImage imageNamed:@"images.bundle/keypadDeleteBtn"] forState:UIControlStateNormal];
     [self addSubview:deleteBtn];
@@ -468,8 +479,6 @@
     [okBtn setBackgroundImage:[UIImage imageNamed:@"images.bundle/keypadLongBtn"] forState:UIControlStateNormal];
     okBtn.tag = 15;
     
-    [wordSwitchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [symbolSwitchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [deleteBtn addTarget:self action:@selector(deleteBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [okBtn addTarget:self action:@selector(okBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -484,18 +493,53 @@
     [self.btnArray addObject:btn7];
     [self.btnArray addObject:btn8];
     [self.btnArray addObject:btn9];
-    [self.btnArray addObject:btn0];
-    [self.btnArray addObject:btnAT];
-    [self.btnArray addObject:pointBtn];
     [self.btnArray addObject:deleteBtn];
-    [self.btnArray addObject:symbolSwitchBtn];
-    [self.btnArray addObject:wordSwitchBtn];
+    [self.btnArray addObject:btn0];
     [self.btnArray addObject:okBtn];
     
-    for (int i = 11; i<16; i++) {
-        UIButton *btn = self.btnArray[i];
-        btn.layer.cornerRadius = 5;
-        btn.layer.masksToBounds = YES;
+    
+    if (self.padType == XQKeyboardNumPadDefault) {
+        
+        XQKeyboardBtn *btnAT = [XQKeyboardBtn buttonWithTitle:self.numArray[10] tag:12 delegate:self];
+        [self addSubview:btnAT];
+        
+        XQKeyboardBtn *pointBtn = [XQKeyboardBtn buttonWithTitle:self.numArray[11] tag:14 delegate:self];
+        [self addSubview:pointBtn];
+        
+        UIButton *wordSwitchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        wordSwitchBtn.tag = 3;
+        [wordSwitchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [wordSwitchBtn setTitle:@"ABC" forState:UIControlStateNormal];
+        wordSwitchBtn.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        [wordSwitchBtn setBackgroundImage:[UIImage imageNamed:@"images.bundle/keypadLongBtn"] forState:UIControlStateNormal];
+        [self addSubview:wordSwitchBtn];
+        
+        UIButton *symbolSwitchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [symbolSwitchBtn setBackgroundImage:[UIImage imageNamed:@"images.bundle/keypadLongBtn"] forState:UIControlStateNormal];
+        [symbolSwitchBtn setTitle:@"@#%" forState:UIControlStateNormal];
+        [symbolSwitchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        symbolSwitchBtn.titleLabel.font = wordSwitchBtn.titleLabel.font;
+        symbolSwitchBtn.tag = 7;
+        [self addSubview:symbolSwitchBtn];
+        
+        [wordSwitchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [symbolSwitchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.btnArray addObject:btnAT];
+        [self.btnArray addObject:pointBtn];
+        [self.btnArray addObject:symbolSwitchBtn];
+        [self.btnArray addObject:wordSwitchBtn];
+        
+        for (int i = 11; i<16; i++) {
+            UIButton *btn = self.btnArray[i];
+            btn.layer.cornerRadius = 5;
+            btn.layer.masksToBounds = YES;
+        }
+    }else if(self.padType == XQKeyboardNumPadOnly){
+        for (int i = 0; i<self.btnArray.count; i++) {
+            UIButton *btn = self.btnArray[i];
+            btn.tag = i;
+        }
     }
     
 }
@@ -509,24 +553,56 @@
         padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
     }
     
-    CGFloat btnW = (currentSize.width - 5*margin)/4;
-    CGFloat btnH = (currentSize.height - 5*margin)/4;
-    
-    for (XQKeyboardBtn *btn in self.btnArray) {
-        btn.frame = CGRectMake(padMargin +margin + btn.tag % 4 * (btnW + margin), margin + btn.tag / 4 * (btnH + margin), btnW, btnH);
-        if (btn.tag == 12 && iPhoneX) {
-            [btn setCornerCutType:UIRectCornerBottomLeft];
-        }else if (btn.tag == 15 && iPhoneX){
-            [btn setCornerCutType:UIRectCornerBottomRight];
+    if (self.padType == XQKeyboardNumPadOnly) {
+        
+        int rowNum = 4;//行
+        int lineNum = 3;//列
+        
+        UIButton *btnTag8 = self.btnArray[8];
+        UIButton *btnTag10 = self.btnArray[9];
+        if (currentOri != UIDeviceOrientationPortrait ) {
+            rowNum = 3;
+            lineNum = 4;
+            if (btnTag8.tag==8) {
+                btnTag8.tag = 9;
+                btnTag10.tag = 8;
+            }
+        }else{
+            if (btnTag8.tag!=8) {
+                btnTag8.tag = 8;
+                btnTag10.tag = 9;
+            }
+        }
+        
+        CGFloat btnW = (currentSize.width - (lineNum+1)*margin)/lineNum;
+        CGFloat btnH = (currentSize.height - (rowNum+1)*margin)/rowNum;
+        
+        for (XQKeyboardBtn *btn in self.btnArray) {
+            btn.frame = CGRectMake(padMargin +margin + btn.tag % lineNum * (btnW + margin), margin + btn.tag / lineNum * (btnH + margin), btnW, btnH);
+            if ((btn.tag == (rowNum-1)*lineNum)  && iPhoneX) {
+                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomLeft];
+                else [btn resetCornerCut];
+            }else if (btn.tag == 11 && iPhoneX){
+                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomRight];
+                else [btn resetCornerCut];
+            }
+        }
+    }else{
+        
+        CGFloat btnW = (currentSize.width - 5*margin)/4;
+        CGFloat btnH = (currentSize.height - 5*margin)/4;
+        for (XQKeyboardBtn *btn in self.btnArray) {
+            btn.frame = CGRectMake(padMargin +margin + btn.tag % 4 * (btnW + margin), margin + btn.tag / 4 * (btnH + margin), btnW, btnH);
+            if (btn.tag == 12 && iPhoneX) {
+                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomLeft];
+                else [btn resetCornerCut];
+            }else if (btn.tag == 15 && iPhoneX){
+                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomRight];
+                else [btn resetCornerCut];
+            }
         }
     }
 }
-- (void)switchBtnClick:(UIButton *)btn{
-    if ([self.delegate respondsToSelector:@selector(keyboardNumPadDidClickSwitchBtn:)]) {
-        [self.delegate keyboardNumPadDidClickSwitchBtn:btn];
-    }
-}
-
 #pragma mark - XQKeyboardBtnDelegate
 -(void)keyboardBtnDidClick:(XQKeyboardBtn *)btn{
     if (btn.tag % 4 == 3) return;
@@ -696,8 +772,13 @@
     self.okBtn.frame = CGRectMake(padMargin + 4*margin + 3*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     
     if (iPhoneX) {
-        [self.numPadCheckBtn setCornerCutType:UIRectCornerBottomLeft];
-        [self.okBtn setCornerCutType:UIRectCornerBottomRight];
+        if (currentOri == UIDeviceOrientationPortrait) {
+            [self.numPadCheckBtn setCornerCutType:UIRectCornerBottomLeft];
+            [self.okBtn setCornerCutType:UIRectCornerBottomRight];
+        }else{
+            [self.numPadCheckBtn resetCornerCut];
+            [self.okBtn resetCornerCut];
+        }
     }
     
 }
@@ -734,6 +815,7 @@
         
         XQKeyboardNumPad *numPad = [[XQKeyboardNumPad alloc] initWithFrame:self.bounds];
         numPad.delegate = self;
+        numPad.padType = XQKeyboardNumPadOnly;
         self.numPad = numPad;
         [self addSubview:numPad];
     }
@@ -800,6 +882,11 @@
     _random = random;
     self.numPad.random = random;
 }
+- (void)setNumberLimit:(BOOL)numberLimit{
+    _numberLimit = numberLimit;
+    self.numPad.padType = numberLimit?XQKeyboardNumPadOnly:XQKeyboardNumPadDefault;
+}
+
 @end
 
 

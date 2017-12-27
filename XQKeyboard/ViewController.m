@@ -27,6 +27,7 @@
     [self.view addSubview:textField];
     XQKeyboard *keyBoard = [[XQKeyboard alloc] init];
     keyBoard.random = YES;
+    keyBoard.numberLimit = true;
     textField.inputView = keyBoard;
     
     
