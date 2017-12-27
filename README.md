@@ -19,5 +19,10 @@
     keyBoard.random = YES;
 ```
 
+###支持数字键盘限制:
+```objc
+    keyBoard.numberLimit = YES;
+```
+
 其中有很多不足的地方,如果有什么建议或意见,还请一起交流探讨,大家共同进步,我的联系方式  QQ:296646879<br>
 您的每一次 Star 都是给我的鼓励,如果对你有帮助,请 Star 或 Fork 一下.☺☺☺☺☺
