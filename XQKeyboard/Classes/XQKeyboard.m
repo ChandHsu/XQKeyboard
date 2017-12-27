@@ -605,8 +605,6 @@ typedef enum{
 }
 #pragma mark - XQKeyboardBtnDelegate
 -(void)keyboardBtnDidClick:(XQKeyboardBtn *)btn{
-    if (btn.tag % 4 == 3) return;
-    
     [XQKeyboardTool appendString:btn.titleLabel.text forResponder:self.responder];
 }
 
