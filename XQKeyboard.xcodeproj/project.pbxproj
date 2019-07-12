@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18A01B611C7AB6E600181E48 /* XQKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A01B601C7AB6E600181E48 /* XQKeyboard.m */; };
+		4A1521BD22D8407C00BAD682 /* XQKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1521BA22D8407C00BAD682 /* XQKeyboard.m */; };
+		4A1521BE22D8407C00BAD682 /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A1521BC22D8407C00BAD682 /* images.bundle */; };
 		4A52AE2E1BCE49AF00CAC390 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE2D1BCE49AF00CAC390 /* main.m */; };
 		4A52AE311BCE49AF00CAC390 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE301BCE49AF00CAC390 /* AppDelegate.m */; };
 		4A52AE341BCE49AF00CAC390 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE331BCE49AF00CAC390 /* ViewController.m */; };
@@ -16,7 +17,6 @@
 		4A52AE3C1BCE49AF00CAC390 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A52AE3A1BCE49AF00CAC390 /* LaunchScreen.storyboard */; };
 		4A52AE471BCE49AF00CAC390 /* XQKeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE461BCE49AF00CAC390 /* XQKeyboardTests.m */; };
 		4A52AE521BCE49AF00CAC390 /* XQKeyboardUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A52AE511BCE49AF00CAC390 /* XQKeyboardUITests.m */; };
-		4A52AE6B1BCE49C400CAC390 /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4A52AE601BCE49C400CAC390 /* images.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,8 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18A01B5F1C7AB6E600181E48 /* XQKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboard.h; sourceTree = "<group>"; };
-		18A01B601C7AB6E600181E48 /* XQKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboard.m; sourceTree = "<group>"; };
+		4A1521BA22D8407C00BAD682 /* XQKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XQKeyboard.m; sourceTree = "<group>"; };
+		4A1521BB22D8407C00BAD682 /* XQKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XQKeyboard.h; sourceTree = "<group>"; };
+		4A1521BC22D8407C00BAD682 /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
 		4A52AE291BCE49AF00CAC390 /* XQKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XQKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A52AE2D1BCE49AF00CAC390 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4A52AE2F1BCE49AF00CAC390 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -55,7 +56,6 @@
 		4A52AE4D1BCE49AF00CAC390 /* XQKeyboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XQKeyboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A52AE511BCE49AF00CAC390 /* XQKeyboardUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XQKeyboardUITests.m; sourceTree = "<group>"; };
 		4A52AE531BCE49AF00CAC390 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A52AE601BCE49C400CAC390 /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +83,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A1521B922D8407C00BAD682 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4A1521BB22D8407C00BAD682 /* XQKeyboard.h */,
+				4A1521BA22D8407C00BAD682 /* XQKeyboard.m */,
+				4A1521BC22D8407C00BAD682 /* images.bundle */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		4A52AE201BCE49AF00CAC390 = {
 			isa = PBXGroup;
 			children = (
@@ -106,7 +116,7 @@
 		4A52AE2B1BCE49AF00CAC390 /* XQKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				4A52AE5F1BCE49C400CAC390 /* Classes */,
+				4A1521B922D8407C00BAD682 /* Classes */,
 				4A52AE2F1BCE49AF00CAC390 /* AppDelegate.h */,
 				4A52AE301BCE49AF00CAC390 /* AppDelegate.m */,
 				4A52AE321BCE49AF00CAC390 /* ViewController.h */,
@@ -144,16 +154,6 @@
 				4A52AE531BCE49AF00CAC390 /* Info.plist */,
 			);
 			path = XQKeyboardUITests;
-			sourceTree = "<group>";
-		};
-		4A52AE5F1BCE49C400CAC390 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				18A01B5F1C7AB6E600181E48 /* XQKeyboard.h */,
-				18A01B601C7AB6E600181E48 /* XQKeyboard.m */,
-				4A52AE601BCE49C400CAC390 /* images.bundle */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,7 +223,7 @@
 				TargetAttributes = {
 					4A52AE281BCE49AF00CAC390 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 8264U7QP2W;
+						DevelopmentTeam = 8FG39PQDPR;
 					};
 					4A52AE411BCE49AF00CAC390 = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -240,6 +240,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -263,7 +264,7 @@
 				4A52AE3C1BCE49AF00CAC390 /* LaunchScreen.storyboard in Resources */,
 				4A52AE391BCE49AF00CAC390 /* Assets.xcassets in Resources */,
 				4A52AE371BCE49AF00CAC390 /* Main.storyboard in Resources */,
-				4A52AE6B1BCE49C400CAC390 /* images.bundle in Resources */,
+				4A1521BE22D8407C00BAD682 /* images.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A52AE341BCE49AF00CAC390 /* ViewController.m in Sources */,
-				18A01B611C7AB6E600181E48 /* XQKeyboard.m in Sources */,
+				4A1521BD22D8407C00BAD682 /* XQKeyboard.m in Sources */,
 				4A52AE311BCE49AF00CAC390 /* AppDelegate.m in Sources */,
 				4A52AE2E1BCE49AF00CAC390 /* main.m in Sources */,
 			);
@@ -432,11 +433,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8264U7QP2W;
+				DEVELOPMENT_TEAM = 8FG39PQDPR;
 				INFOPLIST_FILE = XQKeyboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = xuqiang.XQKeyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.XQKeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -445,11 +446,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8264U7QP2W;
+				DEVELOPMENT_TEAM = 8FG39PQDPR;
 				INFOPLIST_FILE = XQKeyboard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = xuqiang.XQKeyboard;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.XQKeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

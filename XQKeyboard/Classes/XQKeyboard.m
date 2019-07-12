@@ -2,13 +2,21 @@
 //  XQKeyboard.m
 //  XQKeyboard
 //
-//  Created by 徐强 on 15/8/15.
-//  Copyright (c) 2015年 xuqiang. All rights reserved.
+//  Created by ChandHsu on 15/8/15.
+//  Copyright (c) 2015年 ChandHsu. All rights reserved.
 //
 
 #import "XQKeyboard.h"
 
-#define iPhoneX ([UIScreen mainScreen].bounds.size.height==812||[UIScreen mainScreen].bounds.size.width == 812)
+#define  iPhone4     ([[UIScreen mainScreen] bounds].size.height==480)
+#define  iPhone5     ([[UIScreen mainScreen] bounds].size.height==568)
+#define  iPhone6     ([[UIScreen mainScreen] bounds].size.height==667)
+#define  iPhone6plus ([[UIScreen mainScreen] bounds].size.height==736)
+#define  iPhoneX     ([[UIScreen mainScreen] bounds].size.height==812)//1125 * 2436   XS
+#define  iPhoneXMax  ([[UIScreen mainScreen] bounds].size.height==896)//896 * 414宽度  1242X2688(分辨率)模拟器实测
+#define  iPhoneXR    ([[UIScreen mainScreen] bounds].size.height==828)//828 * 1792宽度  828X1792(分辨率) 待模拟器实测
+
+#define ARCScreen    (iPhoneX || iPhoneXR || iPhoneXMax)
 
 #define margin 5
 
@@ -20,7 +28,7 @@
 
 @end
 
-@interface XQKeyboardBasePad:UIView
+@interface XQKeyboardBasePad : UIView
 
 @property (nonatomic, weak  ) UITextField *responder;
 @property (nonatomic, weak  ) UIButton    *deleteBtn;
@@ -80,7 +88,7 @@ typedef enum{
 
 @end
 
-@protocol XQKeyboardSymbolPadDelegate  <NSObject>
+@protocol XQKeyboardSymbolPadDelegate <NSObject>
 
 @required
 - (void)keyboardSymbolPadDidClickSwitchBtn:(UIButton *)btn;
@@ -343,7 +351,8 @@ typedef enum{
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
-    if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
+    BOOL isNormalCase = currentOri == UIDeviceOrientationPortrait || currentOri == UIDeviceOrientationPortraitUpsideDown || currentOri == UIDeviceOrientationFaceUp || currentOri == UIDeviceOrientationFaceDown;
+    if (ARCScreen && !isNormalCase) {
         currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
         padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
     }
@@ -362,10 +371,10 @@ typedef enum{
     self.deleteBtn.frame = CGRectMake(padMargin + 4*margin + 2*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     self.okBtn.frame = CGRectMake(padMargin + 5*margin + 3*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     
-    if (iPhoneX && currentOri == UIDeviceOrientationPortrait) {
+    if (ARCScreen && isNormalCase) {
         [self.numPadCheckBtn setCornerCutType:UIRectCornerBottomLeft];
         [self.okBtn setCornerCutType:UIRectCornerBottomRight];
-    }else if(iPhoneX){
+    }else if(ARCScreen){
         [self.numPadCheckBtn resetCornerCut];
         [self.okBtn resetCornerCut];
     }
@@ -548,7 +557,8 @@ typedef enum{
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
-    if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
+    BOOL isNormalCase = currentOri == UIDeviceOrientationPortrait || currentOri == UIDeviceOrientationPortraitUpsideDown || currentOri == UIDeviceOrientationFaceUp || currentOri == UIDeviceOrientationFaceDown;
+    if (ARCScreen && !isNormalCase) {
         currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
         padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
     }
@@ -560,7 +570,7 @@ typedef enum{
         
         UIButton *btnTag8 = self.btnArray[8];
         UIButton *btnTag10 = self.btnArray[9];
-        if (currentOri != UIDeviceOrientationPortrait ) {
+        if (isNormalCase) {
             rowNum = 3;
             lineNum = 4;
             if (btnTag8.tag==8) {
@@ -579,12 +589,18 @@ typedef enum{
         
         for (XQKeyboardBtn *btn in self.btnArray) {
             btn.frame = CGRectMake(padMargin +margin + btn.tag % lineNum * (btnW + margin), margin + btn.tag / lineNum * (btnH + margin), btnW, btnH);
-            if ((btn.tag == (rowNum-1)*lineNum)  && iPhoneX) {
-                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomLeft];
-                else [btn resetCornerCut];
-            }else if (btn.tag == 11 && iPhoneX){
-                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomRight];
-                else [btn resetCornerCut];
+            if ((btn.tag == (rowNum-1)*lineNum)  && ARCScreen) {
+                if (isNormalCase) {
+                    [btn setCornerCutType:UIRectCornerBottomLeft];
+                }else {
+                    [btn resetCornerCut];
+                }
+            }else if (btn.tag == 11 && ARCScreen){
+                if (isNormalCase) {
+                    [btn setCornerCutType:UIRectCornerBottomRight];
+                }else {
+                    [btn resetCornerCut];
+                }
             }
         }
     }else{
@@ -593,11 +609,11 @@ typedef enum{
         CGFloat btnH = (currentSize.height - 5*margin)/4;
         for (XQKeyboardBtn *btn in self.btnArray) {
             btn.frame = CGRectMake(padMargin +margin + btn.tag % 4 * (btnW + margin), margin + btn.tag / 4 * (btnH + margin), btnW, btnH);
-            if (btn.tag == 12 && iPhoneX) {
-                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomLeft];
+            if (btn.tag == 12 && ARCScreen) {
+                if (isNormalCase) [btn setCornerCutType:UIRectCornerBottomLeft];
                 else [btn resetCornerCut];
-            }else if (btn.tag == 15 && iPhoneX){
-                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomRight];
+            }else if (btn.tag == 15 && ARCScreen){
+                if (isNormalCase) [btn setCornerCutType:UIRectCornerBottomRight];
                 else [btn resetCornerCut];
             }
         }
@@ -735,7 +751,8 @@ typedef enum{
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
-    if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
+    BOOL isNormalCase = currentOri == UIDeviceOrientationPortrait || currentOri == UIDeviceOrientationPortraitUpsideDown || currentOri == UIDeviceOrientationFaceUp || currentOri == UIDeviceOrientationFaceDown;
+    if (ARCScreen && !isNormalCase) {
         currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
         padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
     }
@@ -769,8 +786,8 @@ typedef enum{
     self.symbolBtn.frame = CGRectMake(padMargin + 3*margin + 2*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     self.okBtn.frame = CGRectMake(padMargin + 4*margin + 3*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     
-    if (iPhoneX) {
-        if (currentOri == UIDeviceOrientationPortrait) {
+    if (ARCScreen) {
+        if (isNormalCase) {
             [self.numPadCheckBtn setCornerCutType:UIRectCornerBottomLeft];
             [self.okBtn setCornerCutType:UIRectCornerBottomRight];
         }else{
@@ -804,20 +821,33 @@ typedef enum{
 
 @implementation XQKeyboard
 
++ (instancetype)keyboard{
+    return [self keyboardWithHeight:260];
+}
++ (instancetype)keyboardWithHeight:(CGFloat)height{
+    XQKeyboard *keyboard = [[XQKeyboard alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height) inputViewStyle:UIInputViewStyleKeyboard];
+    return keyboard;
+}
+- (instancetype)initWithFrame:(CGRect)frame inputViewStyle:(UIInputViewStyle)inputViewStyle{
+    if (self = [super initWithFrame:frame inputViewStyle:inputViewStyle]) {
+        [self afterInit];
+    }
+    return self;
+}
 - (instancetype)init{
     self = [super init];
     if (self) {
-        self.backgroundColor = [UIColor colorWithRed:116/255.0 green:144/255.0 blue:194/255.0 alpha:0.2];
-        
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
-        XQKeyboardNumPad *numPad = [[XQKeyboardNumPad alloc] initWithFrame:self.bounds];
-        numPad.delegate = self;
-        numPad.padType = XQKeyboardNumPadOnly;
-        self.numPad = numPad;
-        [self addSubview:numPad];
     }
     return self;
+}
+- (void)afterInit{
+    self.backgroundColor = [UIColor colorWithRed:116/255.0 green:144/255.0 blue:194/255.0 alpha:0.2];
+    XQKeyboardNumPad *numPad = [[XQKeyboardNumPad alloc] init];
+    numPad.delegate = self;
+    numPad.padType = XQKeyboardNumPadOnly;
+    self.numPad = numPad;
+    [self addSubview:numPad];
 }
 - (XQKeyboardNumPad *)numPad{
     if (!_numPad) {
@@ -883,6 +913,12 @@ typedef enum{
 - (void)setNumberLimit:(BOOL)numberLimit{
     _numberLimit = numberLimit;
     self.numPad.padType = numberLimit?XQKeyboardNumPadOnly:XQKeyboardNumPadDefault;
+}
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    self.numPad.frame = self.bounds;
+    self.wordPad.frame = self.bounds;
+    self.symbolPad.frame = self.bounds;
 }
 
 @end
