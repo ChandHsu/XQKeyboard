@@ -19,7 +19,7 @@ keyBoard.random = YES;
 
 支持数字键盘限制:
 ```objc
- keyBoard.numberLimit = YES;
+keyBoard.numberLimit = YES;
 ```
 ##问题
 ###1.iOS7 不弹出键盘
