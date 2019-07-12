@@ -21,9 +21,9 @@ keyBoard.random = YES;
 ```objc
 keyBoard.numberLimit = YES;
 ```
-##问题
-###1.iOS7 不弹出键盘
-###2.iOS12 高度不稳定
+## 问题
+### 1.iOS7 不弹出键盘
+### 2.iOS12 高度不稳定
 以上问题均为系统响应机制的变化导致,咱们只能去适配它,如果使用下面两个方法初始化,则可避免此类问题:
 ```objc
 + (instancetype)keyboard;
